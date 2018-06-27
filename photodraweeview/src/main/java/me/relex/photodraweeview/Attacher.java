@@ -107,17 +107,14 @@ public class Attacher implements IAttacher, View.OnTouchListener, OnScaleDragGes
     }
 
     @Override public void setMaximumScale(float maximumScale) {
-        checkZoomLevels(mMinScale, mMidScale, maximumScale);
         mMaxScale = maximumScale;
     }
 
     @Override public void setMediumScale(float mediumScale) {
-        checkZoomLevels(mMinScale, mediumScale, mMaxScale);
         mMidScale = mediumScale;
     }
 
     @Override public void setMinimumScale(float minimumScale) {
-        checkZoomLevels(minimumScale, mMidScale, mMaxScale);
         mMinScale = minimumScale;
     }
 
@@ -197,9 +194,9 @@ public class Attacher implements IAttacher, View.OnTouchListener, OnScaleDragGes
     }
 
     private static void checkZoomLevels(float minZoom, float midZoom, float maxZoom) {
-        if (minZoom >= midZoom) {
+        if (minZoom > midZoom) {
             throw new IllegalArgumentException("MinZoom has to be less than MidZoom");
-        } else if (midZoom >= maxZoom) {
+        } else if (midZoom > maxZoom) {
             throw new IllegalArgumentException("MidZoom has to be less than MaxZoom");
         }
     }
